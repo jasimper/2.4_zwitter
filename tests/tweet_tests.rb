@@ -1,19 +1,33 @@
 require 'minitest/autorun'
-require '../required/zombie'
+require_relative '../required/zombie'
 
-class TweetTest < MiniTest::Test
-  def setup do
-    @tweet = Tweet.new()
+class TweetTest < Minitest::Test
+
+  def setup
+    @tweet = Tweet.new
+    @tweet.author = "testzombie"
+    @tweet.content = "test tweet content"
+    @tweet.timestamp = Time.now.strftime("%d/%m/%Y %H:%M")
   end
 
-  def test_tweet
-    # assert_equal '', @tweet.author
-    # assert_equal '', @zombie.last_name
-    # assert_equal '', @zombie.location
-    # assert_equal '', @zombie.bio
-    # assert_equal 'testname', @zombie.username
-    # assert_equal 'testpassword', @zombie.password
+  def test_create_tweet
+    assert_equal '', @tweet.location
+    assert_equal '', @tweet.attachment
+    assert_equal 'testzombie', @tweet.author
+    assert_equal 'test tweet content', @tweet.content
+    assert _equal Time.now.strftime("%d/%m/%Y %H:%M"), @tweet.timestamp
   end
+
+  def test_delete_tweet
+    @tweet.delete
+      assert_equal nil, @tweet.content
+      assert_equal nil, @tweet.timestamp
+      assert_equal nil, @tweet.location
+      assert_equal nil, @tweet.attachment
+      assert_equal nil, @tweet.retweets
+      assert_equal nil, @tweet.retweeted_by
+  end
+
 
   def test_retweet
     # user wants to retweet an existing tweet
