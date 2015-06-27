@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require '../classes/zombie'
+require '../required/zombie'
 
 class TweetTest < MiniTest::Test
   def setup do

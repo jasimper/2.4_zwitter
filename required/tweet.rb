@@ -1,4 +1,8 @@
+require_relative 'zwittermodule'
+
 class Tweet
+  include Zwittermodule
+
   attr_accessor :author, :content, :timestamp, :location,\
                 :attachment, :retweets, :retweeted_by
 
@@ -19,23 +23,23 @@ class Tweet
   def self.all; ObjectSpace.each_object(self).to_a end
 
   def format_tweet
-    "#{self.content} (Tweeted #{self.timestamp.strftime("%d/%m/%Y %H:%M")} by #{self.author.username})"
+    "#{self.content} (Tweeted #{self.display_time} by #{self.author.username})"
   end
 
   def view
-    puts "#{self.content} (Tweeted #{self.timestamp.strftime("%d/%m/%Y %H:%M")} by #{self.author.username})"
+    puts self.format_tweet
   end
 
   def retweet(retweeter:, location: nil)
     t = Tweet.new
     t.author = retweeter
-    t.timestamp = Time.now  #use .strftime("%d/%m/%Y %H:%M") to display timestamp
+    t.timestamp = Time.now
     t.location = :location
     t.attachment = self.attachment
     t.content = %{
-      #{t.author} retweeted on #{t.timestamp.strftime("%d/%m/%Y %H:%M")}:
+      #{t.author} retweeted on #{t.display_time}:
       #{self.content}
-      (Original tweeted #{self.timestamp.strftime("%d/%m/%Y %H:%M")} by #{self.author})
+      (Original tweeted #{self.display_time} by #{self.author})
       }
     retweeter.tweets.push(t)
     self.retweets.push(t)

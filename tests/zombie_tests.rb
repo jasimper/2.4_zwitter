@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require '../classes/zombie'
+require '../required/zombie'
 
 class ZombieTest < MiniTest::Test
   def setup do

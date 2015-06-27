@@ -1,4 +1,8 @@
+require_relative 'zwittermodule'
+
 class Zombie
+  include Zwittermodule
+
   attr_accessor :first_name, :last_name, :username, :password, :location, :bio,\
                 :image, :tweets, :created_at, :following, :followers, :tweet_feed
 
@@ -14,11 +18,10 @@ class Zombie
     self.following = []
     self.followers = []
     self.tweet_feed = []
-    self.created_at = Time.now # use strftime("%d/%m/%Y %H:%M") to display timestamp
+    self.created_at = Time.now
   end
 
   def begone
-    # self.destroy = Zombie.destroy(self.me)
     self.first_name = nil
     self.last_name = nil
     self.username = nil
@@ -37,7 +40,7 @@ class Zombie
     t = Tweet.new
     t.author = self
     t.content = content
-    t.timestamp = Time.now #use .strftime("%d/%m/%Y %H:%M") to display timestamp
+    t.timestamp = Time.now
     t.location = location
     t.attachment = attachment
     self.tweets.push(t)
@@ -55,7 +58,7 @@ class Zombie
 
   def show_my_tweets
     self.tweets.each do |tweet|
-      puts "#{tweet.content} (Tweeted #{tweet.timestamp.strftime("%d/%m/%Y %H:%M")})"
+      puts "#{tweet.content} (Tweeted #{tweet.display_time})"
     end
   end
 

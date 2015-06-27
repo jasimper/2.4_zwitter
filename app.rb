@@ -1,6 +1,6 @@
-require './classes/zombie'
-require './classes/tweet'
-require './classes/following'
+require './required/zombie'
+require './required/tweet'
+require './required/following'
 
 def sort_tweets(array_of_tweets)
   sorted_tweets = []
@@ -28,8 +28,8 @@ ann.create_tweet(content: "On second thought, kidneys sound better")
 puts ann.username
 ann.show_my_tweets
 
+puts "\n All tweets so far, starting with the most recent:\n"
 sort_tweets(Tweet.all)
-
 
 # tom.follow_zombie(ann)
 # puts "Zombies following #{tom.username}: #{tom.show_my_followers}"

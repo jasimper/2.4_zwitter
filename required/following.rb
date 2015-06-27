@@ -1,4 +1,8 @@
+require_relative 'zwittermodule'
+
 class Following
+  include Zwittermodule
+
   attr_accessor :follower, :followed, :timestamp
 
   def initialize(zombie_follower, zombie_to_follow, created_time)
