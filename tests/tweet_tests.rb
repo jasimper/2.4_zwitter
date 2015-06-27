@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require_relative '../required/zombie'
+require_relative '../required/tweet'
 
 class TweetTest < Minitest::Test
 
@@ -7,15 +7,15 @@ class TweetTest < Minitest::Test
     @tweet = Tweet.new
     @tweet.author = "testzombie"
     @tweet.content = "test tweet content"
-    @tweet.timestamp = Time.now.strftime("%d/%m/%Y %H:%M")
+    @tweet.timestamp = "d/m/y h:m"
   end
 
   def test_create_tweet
-    assert_equal '', @tweet.location
-    assert_equal '', @tweet.attachment
+    assert_equal nil, @tweet.location
+    assert_equal nil, @tweet.attachment
     assert_equal 'testzombie', @tweet.author
     assert_equal 'test tweet content', @tweet.content
-    assert _equal Time.now.strftime("%d/%m/%Y %H:%M"), @tweet.timestamp
+    assert _equal 'd/m/y h:m', @tweet.timestamp
   end
 
   def test_delete_tweet
