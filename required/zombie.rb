@@ -6,7 +6,7 @@ class Zombie
   attr_accessor :first_name, :last_name, :username, :password, :location, :bio,\
                 :image, :tweets, :timestamp, :following, :followers, :tweet_feed
 
-  def initialize(username:, password:, first_name: "", last_name: "", location: "", bio: "", image: "http://zombieportraits.com/wp-content/uploads/2011/10/slow-zombie.jpg")
+  def initialize(username:, password:, first_name: "", last_name: "", location: "", bio: "", image: "http://vignette3.wikia.nocookie.net/lego/images/8/81/Zombie_Groom.png/revision/latest?cb=20120823164249")
     self.username = username
     self.password = password
     self.first_name = first_name
