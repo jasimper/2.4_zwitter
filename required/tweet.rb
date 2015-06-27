@@ -20,8 +20,6 @@ class Tweet
     self.retweeted_by = nil
   end
 
-  def self.all; ObjectSpace.each_object(self).to_a end
-
   def format_tweet
     "#{self.content} (Tweeted #{self.display_time} by #{self.author.username})"
   end
@@ -34,17 +32,17 @@ class Tweet
     t = Tweet.new
     t.author = retweeter
     t.timestamp = Time.now
-    t.location = :location
+    t.location = location
     t.attachment = self.attachment
     t.content = %{
       #{t.author} retweeted on #{t.display_time}:
       #{self.content}
-      (Original tweeted #{self.display_time} by #{self.author})
-      }
+      (Original tweeted #{self.display_time} by #{self.author})}
     retweeter.tweets.push(t)
     self.retweets.push(t)
     self.retweeted_by.push(t.author)
     t
   end
 
+  def self.all; ObjectSpace.each_object(self).to_a end
 end

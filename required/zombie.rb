@@ -4,7 +4,7 @@ class Zombie
   include Zwittermodule
 
   attr_accessor :first_name, :last_name, :username, :password, :location, :bio,\
-                :image, :tweets, :created_at, :following, :followers, :tweet_feed
+                :image, :tweets, :timestamp, :following, :followers, :tweet_feed
 
   def initialize(username:, password:, first_name: "", last_name: "", location: "", bio: "", image: "http://zombieportraits.com/wp-content/uploads/2011/10/slow-zombie.jpg")
     self.username = username
@@ -18,7 +18,7 @@ class Zombie
     self.following = []
     self.followers = []
     self.tweet_feed = []
-    self.created_at = Time.now
+    self.timestamp = Time.now
   end
 
   def begone
@@ -30,7 +30,7 @@ class Zombie
     self.bio = nil
     self.image = nil
     self.tweets = nil
-    self.created_at = nil
+    self.timestamp = nil
     self.following = nil
     self.followers = nil
     self.tweet_feed = nil
@@ -48,37 +48,55 @@ class Zombie
   end
 
   def delete_tweet(tweet)
-    tweet.delete
     self.tweets.delete(tweet)
+    tweet.delete
   end
 
-  def follow_zombie(zombiefriend)
-    Following.new(self, zombiefriend, Time.now )
+  def follow_zombie(zombie_friend)
+    Following.new(self, zombie_friend, Time.now )
+  end
+
+  def unfollow_zombie(zombie_enemy)
+    Following.destroy(self, zombie_enemy)
   end
 
   def show_my_tweets
+    puts "My zweets:"
     self.tweets.each do |tweet|
       puts "#{tweet.content} (Tweeted #{tweet.display_time})"
     end
   end
 
   def show_tweet_feed
+    puts "Zweets from my Zombie pals:"
     all = []
     self.following.each do |zombiepal|
       all.push(zombiepal.tweets)
     end
     all = all.flatten
-    all.map! { |tweet| tweet.view }
-    puts all #only sorted by author, not posted date
-    # want to display the tweets sorted by the time tweet was posted
+    sort_tweets(all)
   end
 
   def show_my_followers
+    puts "Zombies following me:"
     puts self.followers.map(&:username)
   end
 
   def show_zombies_followed
+    puts "Zombies I follow:"
     puts self.following.map(&:username)
+  end
+
+  def profile
+    puts "#{self.username}'s Profile:"
+    puts "(un)living in #{self.location}" unless self.location == ""
+    puts "Zweeting since #{self.display_time}"
+    puts self.bio unless self.bio == ""
+    system("open", self.image)
+    puts "\n"
+    self.show_my_followers
+    puts "\n"
+    self.show_zombies_followed
   end
 
   def self.all; ObjectSpace.each_object(self).to_a end
