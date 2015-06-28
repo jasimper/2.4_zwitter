@@ -29,11 +29,11 @@ class Zombie
     self.location = nil
     self.bio = nil
     self.image = nil
-    self.tweets = nil
     self.timestamp = nil
     self.following = nil
     self.followers = nil
     self.tweet_feed = nil
+    self.tweets.clear
   end
 
   def create_tweet(content:, location: nil, attachment: nil)
