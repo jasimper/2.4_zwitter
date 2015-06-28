@@ -1,6 +1,4 @@
 require './required/program'
-require './required/zombie'
-require './required/tweet'
 
 show_logo
 
@@ -27,28 +25,43 @@ show_logo
 # puts "\nI'm #{ann.username} and this is my zweet feed:"
 # ann.show_tweet_feed
 # sleep(3)
-
-# puts "\n"
-# tom.profile
-# sleep(3)
-
-# puts "\n"
+#
+# # puts "\n"
+# # tom.profile
+# # sleep(3)
+#
+# puts "\ntom's tweets:"
 # tom.show_my_tweets
-
+#
 # puts "\n Deleting tom_the_zombie's first tweet..."
-# tom.delete_tweet(tom.tweets[1])
+# tom.delete_tweet(tom.tweets.first)
 # sleep(3)
-# puts "\n"
+# puts "\ntom's tweets:"
 # tom.show_my_tweets
+# puts "\nzombieann's tweet feed:"
 # ann.show_tweet_feed
 #
 #
-# puts "\n"
+# puts "\nzombieann's followers:"
 # ann.show_my_followers
-
+# puts "\nzombieann's tweet feed:"
+# ann.show_tweet_feed
+# sleep(10)
+#
 # puts "\n Deleting tom_the_zombie's following of zombieann..."
-#  tom.unfollow_zombie(ann)
+# tom.unfollow_zombie(ann)
 # sleep(3)
-# puts "\n"
+# puts "\ntom follows:"
 # tom.show_zombies_followed
+# puts "\nzombieann's followers:"
 # ann.show_my_followers
+# puts "\nzombieann's tweet feed:"
+# ann.show_tweet_feed
+#
+# puts "\n Deleting tom_the_zombie..."
+# tom.begone
+# puts "\nzombieann's followers:"
+# ann.show_my_followers
+# puts "\nzombieann's tweet feed:"
+# ann.show_tweet_feed
+# sleep(10)

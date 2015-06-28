@@ -25,8 +25,8 @@ class TweetTest < Minitest::Test
     assert_equal nil, @tweet.timestamp
     assert_equal nil, @tweet.location
     assert_equal nil, @tweet.attachment
-    assert_equal nil, @tweet.retweets
-    assert_equal nil, @tweet.retweeted_by
+    assert_equal [], @tweet.retweets
+    assert_equal [], @tweet.retweeted_by
   end
 
   def test_format_tweet

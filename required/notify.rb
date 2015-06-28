@@ -1,14 +1,19 @@
 require_relative 'zwittermodule'
+require_relative 'tweet'
 
-class Notify
+class Notify < Tweet
   include Zwittermodule
 
-  attr_accessor :notifier, :notified, :timestamp
+  attr_accessor :notifier, :notified
+# removed notifier; if the notice will be like a tweet, the author is the notifier
+# removed timestamp, since it already exists under the Tweet class (though it
+# still needed to be assigned a time on initialization)
 
-  def initialize(zombie_notifier, zombie_to_notify, created_time)
-    self.notifier = zombie_notifier
+  def initialize(zombie_notifier, zombie_to_notify)
+    self.author = zombie_notifier
     self.notified = zombie_to_notify
-    self.timestamp = created_time
+    self.timestamp = Time.now
+    self.content = ("#{self.author.username} started following #{self.notified.username} at #{self.display_time}.")
   end
 
   # My basic idea was to be able to notify users of being followed, getting a reply to a tweet, or
@@ -17,8 +22,9 @@ class Notify
   # program.rb file, I've removed all other attempts at linking these methods to other methods (like
   # follow_zombie) because it was breaking the app.
 
-  def notify_of_follow(zombie_notifier, zombie_to_notify, created_time)
-    zombie_to_notify.tweet_feed.push("#{zombie_notifier} started following you at #{created_time}.")
+  def send_notice_of_follow
+    self.author.tweets.push(self)
+    # self.notified.tweet_feed.push(self)
   end
 
   def reply_to_tweet

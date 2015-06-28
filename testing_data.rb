@@ -21,3 +21,9 @@ mary.create_tweet(content: "I'm going downtown to get a snack. Anyone want to jo
 sara.create_tweet(content: "Anyone know any good voice-recognition apps?", location: "Home")
 sleep(1)
 bob.create_tweet(content: "Nevermind. I found it! Anyone got some duct tape?")
+
+
+
+tom = Zombie.new(username: "tom_the_zombie", password: "brains")
+tweet1 = tom.create_tweet(content: "I ate some brains. They were tasty.")
+tweet2 = tom.create_tweet(content: "Oh look! More brains! om nom nom...")
