@@ -14,26 +14,18 @@ class Zombie
     self.location = location
     self.bio = bio
     self.image = image
-    self.tweets = []
-    self.following = []
-    self.followers = []
-    self.tweet_feed = []
+    @tweets, @following, @followers, @tweet_feed = [], [], [], []
     self.timestamp = Time.now
   end
 
   def begone
-    self.first_name = nil
-    self.last_name = nil
-    self.username = nil
-    self.password = nil
-    self.location = nil
-    self.bio = nil
-    self.image = nil
-    self.timestamp = nil
-    self.following = nil
-    self.followers = nil
-    self.tweet_feed = nil
-    self.tweets.clear
+    # we have not yet solved the problem of deleting the whole instance, so we are
+    # assigning all of the attributes to nil (or clearing any attributes which are arrays)
+    @first_name, @last_name, @username, @password, @location, @bio, @image, @timestamp = nil
+    params_to_clear = [@following, @followers, @tweet_feed, @tweets]
+    clear_param_arrays(params_to_clear)
+    # should think about how to remove a zombie from the "followers" array of other
+    # zombies, should the following instance not be removed before user deletion
   end
 
   def create_tweet(content:, location: nil, attachment: nil)
@@ -53,9 +45,11 @@ class Zombie
   end
 
   def follow_zombie(zombie_friend)
-    Following.new(self, zombie_friend, Time.now )
+    Following.new(self, zombie_friend)
   end
 
+# Note that unfollowing does not remove existing tweets from the unfollowed
+# zombie's tweet feed (not sure why yet).
   def unfollow_zombie(zombie_enemy)
     Following.destroy(self, zombie_enemy)
   end

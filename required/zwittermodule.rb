@@ -14,6 +14,9 @@ module Zwittermodule
     puts sorted_tweets.map { |tweet| tweet.format_tweet}
   end
 
-
+  # use this to clear instance parameters which are arrays
+  def clear_param_arrays(array_of_params)
+    array_of_params.cycle(1) { |x| x.clear}
+  end
 
 end

@@ -7,24 +7,25 @@ class Tweet
                 :attachment, :retweets, :retweeted_by, :is_retweet
 
   def initialize
-    self.retweets = []
-    self.retweeted_by = []
+    @retweets, @retweeted_by = [], []
     self.is_retweet = false
   end
 
   def delete
-    self.content = nil
-    self.timestamp = nil
-    self.location = nil
-    self.attachment = nil
-    self.retweets = nil
-    self.retweeted_by = nil
+    # following line is to ensure that, regardless of how the tweet is deleted,
+    # it must be removed from the author's array of tweets
+    self.author.tweets.delete(self) if self.author.tweets.include? self
+    # we have not yet solved the problem of deleting the whole instance, so we are
+    # assigning all of the attributes to nil (or clearing any attributes which are arrays)
+    @author, @content, @timestamp, @location, @attachment, @is_retweet = nil
+    params_to_clear = [@retweets, @retweeted_by]
+    clear_param_arrays(params_to_clear)
   end
 
   def format_tweet
     original = "#{self.content} (Tweeted #{self.display_time} by #{self.author.username})"
-    retweet = "#{self.content}"
-    self.is_retweet ? retweet : original
+    retweet_or_notice = "#{self.content}"
+    (self.is_retweet || self.class == Notify) ? retweet_or_notice : original
   end
 
   def view

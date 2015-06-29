@@ -33,9 +33,10 @@ class ZombieTest < Minitest::Test
     assert_equal @zombie.location, nil
     assert_equal @zombie.bio, nil
     assert_equal @zombie.image, nil
-    assert_equal @zombie.following, nil
-    assert_equal @zombie.followers, nil
-    assert_equal @zombie.tweet_feed, nil
+    assert_equal @zombie.following, []
+    assert_equal @zombie.followers, []
+    assert_equal @zombie.tweet_feed, []
+    assert_equal @zombie.tweets, []
   end
 
   def test_created_tweet_added_to_my_tweets
